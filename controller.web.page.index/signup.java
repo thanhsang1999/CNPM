@@ -101,6 +101,7 @@ public class signup extends HttpServlet {
 				userss.setActive(1);
 				session.setAttribute("user", userss);
 				// response.sendRedirect(request.getContextPath()+"/web/index");
+				//tra ve ket qua cho form
 				response.getWriter().print("OK");
 			} else {
 				if (tmpcountaccount == 0) {
