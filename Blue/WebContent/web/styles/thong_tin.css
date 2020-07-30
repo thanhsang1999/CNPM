@@ -1,0 +1,208 @@
+.box_content {
+    display: block;
+    overflow: hidden;
+    border-top: 1px solid #e4e4e4;
+    margin-top: 15px
+}
+
+.right_content {
+    float: right;
+    width: 30%;
+    overflow: visible;
+    margin: 20px 0
+}
+
+button {
+    font: 14px/18px Helvetica, Arial, 'DejaVu Sans', 'Liberation Sans', Freesans, sans-serif;
+    color: #333;
+    outline: none;
+    zoom: 1
+}
+
+.left_content {
+    float: left;
+    width: 65%;
+    overflow: hidden;
+    position: relative;
+    margin: 20px 0
+}
+
+.tableparameter {
+    display: block;
+    overflow: visible
+}
+
+.tableparameter h4,
+.tableparameter h3,
+.tableparameter h2 {
+    display: block;
+    line-height: 1.3em;
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 0
+}
+
+.parameter {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    background: #fff;
+    padding-top: 10px
+}
+
+.parameter li {
+    display: table;
+    background: #fff;
+    width: 100%;
+    border-top: 1px solid #eee;
+    padding: 5px 0
+}
+
+.parameter:not(.tableparameter_acc) li:nth-child(n+11) {
+    display: none
+}
+
+.parameter li:last-child {
+    border-bottom: 0
+}
+
+.parameter li:nth-child(n+10) {
+    border-bottom: 0
+}
+
+.parameter li span {
+    display: table-cell;
+    width: 40%;
+    vertical-align: top;
+    padding: 5px 0;
+    font-size: 14px;
+    color: #666
+}
+
+.parameter li i {
+    font-style: normal;
+    display: inline
+}
+
+.parameter li i:last-child:after {
+    content: none
+}
+
+.parameter li i:after {
+    content: ', '
+}
+
+.parameter li div {
+    display: table-cell;
+    width: auto;
+    vertical-align: top;
+    padding: 6px 5px;
+    font-size: 14px;
+    color: #333
+}
+
+.parameter li div a {
+    color: #288ad6
+}
+
+.parameter li div.isim {
+    display: block;
+    border-bottom: 1px solid #eee
+}
+
+.parameter li div.ibsim {
+    display: block
+}
+
+.parameter li div.ibsim b.h {
+    background: #e91935;
+    color: #fff;
+    padding: 3px 5px;
+    border-radius: 3px;
+    font-size: 10px;
+    margin-right: 5px
+}
+
+.parameter li div.ibsim b.p {
+    color: #d0021b
+}
+
+.viewparameterfull {
+    display: block;
+    width: 100%;
+    padding: 6px 0;
+    margin: 10px 0 0;
+    cursor: pointer;
+    text-align: center;
+    font-size: 14px;
+    background-color: #288ad6;
+    color: #fff;
+    border: 1px solid #288ad6;
+    border-radius: 4px
+}
+
+.viewparameterfull:hover {
+    color: #288ad6;
+    background-color: #fff;
+    border: 1px solid #288ad6
+}
+
+.none {
+    display: none
+}
+
+.ten-san-pham {
+    font-weight: bold;
+}
+
+#select-color {
+    margin-left: 0;
+}
+
+.gia-san-pham {
+    color: #e74c3c;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.mo-ta-san-pham {
+    font-weight: 600;
+}
+
+.black {
+    color: black;
+}
+
+.white {
+    color: white;
+}
+
+.black {
+    color: #288ad6;
+}
+
+.btn-dat-hang:focus {
+    background: #007bff;
+}
+
+.btn-dat-hang:focus {
+    color: white;
+}
+.btn-dat-hang {
+    color: white;
+}
+.viewparameterfull {
+    margin-top: 130px;
+}
+
+.mua-hang-1 {}
+
+.mua-hang-2 {
+    margin-top: 50px;
+
+}
+
+#chi-tiet {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}

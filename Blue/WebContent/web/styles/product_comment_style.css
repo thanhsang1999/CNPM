@@ -1,0 +1,246 @@
+.danh-gia-binh-luan {
+    margin-top: 50px;
+}
+
+.bg-form-danh-gia {
+    border: 1px solid black;
+}
+
+.form-danh-gia {
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.danh-gia-binh-luan .star {
+    color: darkorange;
+}
+
+.show-view-star-left {
+    border-right: 1px solid black;
+    padding-top: 55px;
+}
+
+.total-star {
+    font-size: 45px;
+    font-weight: bold;
+}
+
+.show-view-star-left i {
+    font-size: 40px;
+    position: relative;
+    top: -2px;
+}
+
+.show-view-star-right {
+    margin-left: 30px;
+}
+
+.show-view-star-right .bar-5 {
+    width: 60%;
+    height: 18px;
+    background-color: #2196F3;
+}
+
+.show-view-star-right .bar-4 {
+    width: 30%;
+    height: 18px;
+    background-color: #2196F3;
+}
+
+.show-view-star-right .bar-3 {
+    width: 10%;
+    height: 18px;
+    background-color: #2196F3;
+}
+
+.show-view-star-right .bar-2 {
+    width: 4%;
+    height: 18px;
+    background-color: #2196F3;
+}
+
+.show-view-star-right .bar-1 {
+    width: 15%;
+    height: 18px;
+    background-color: #2196F3;
+}
+.show-view-star-right .bar-0 {
+    width: 0% !important;
+    height: 18px;
+    background-color: #2196F3;
+}
+.show-view-star-right .side {
+    float: left;
+    width: 15%;
+    margin-top: 10px;
+}
+
+.show-view-star-right .middle {
+    margin-top: 10px;
+    float: left;
+    width: 70%;
+}
+
+.show-view-star-right .right {
+    text-align: right;
+}
+
+.show-view-star-right .bar-container {
+    width: 100%;
+    background-color: #f1f1f1;
+    text-align: center;
+    color: white;
+}
+
+.show-view-star-right .span-diem-star {
+    font-size: 18px;
+    color: rgba(0, 0, 0, 0.712);
+}
+
+.sl-danh-gia {
+    color: #2196F3;
+    font-size: 13px;
+}
+
+.show-view-star-btn {
+    margin-left: -30px;
+    text-align: center;
+    padding-top: 73px;
+}
+
+.btn-danh-gia {}
+
+.danh-gian-phan-2 {
+    margin-top: 20px;
+}
+
+#bieu-mau-danh-gia {
+    border: 1px solid black;
+}
+
+.bieu-mau-danh-gia {
+    margin: 30px 0px 30px 0px;
+}
+
+.rating {
+    margin-left: 50px;
+    font-size: 18px;
+}
+
+.rating ul li {
+    float: left;
+    margin: 0 2px 0 2px;
+    cursor: pointer;
+}
+
+.rating ul {
+    float: left;
+}
+
+.rating span {
+    float: left;
+    margin-right: 10px;
+}
+
+#input-danh-gia,
+#input-binh-luan {
+    resize: none;
+}
+
+.binh-luan {
+    margin-bottom: 30px;
+}
+
+.form-danh-gia-phan-2 {
+    margin-top: 15px;
+}
+
+.form-danh-gia-phan-2-right-2 {
+    margin-top: 15px;
+}
+
+#bieu-mau-danh-gia input,
+#bieu-mau-danh-gia textarea {
+    color: rgba(0, 0, 0, 0.733);
+}
+
+.bg-cmt-danh-gia {
+    margin-top: 20px;
+}
+
+.cmt-danh-gia,
+.cmt-binh-luan {
+    border-top: 1px solid black;
+}
+
+.danh-gia,
+.binh-luan {
+    margin-top: 30px;
+}
+
+.title-danh-gia,
+.title-binh-luan {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.danh-gia>li,
+.binh-luan>li {
+    margin-top: 25px;
+    margin-left: 15px;
+}
+
+
+.value-rating-star>ul>li {
+    float: left;
+    margin-right: 2px;
+}
+
+.noi-dung-danh-gia {
+    margin-left: 10px;
+}
+
+.green {
+    color: #2ecc71;
+}
+
+.ten-danh-gia,
+.ten-binh-luan {
+    font-weight: bold;
+    color: #2196F3;
+}
+
+.bg-binh-luan {
+
+    margin-top: 30px;
+
+}
+
+.binh-luan {
+    margin-top: 30px;
+}
+
+.tieu-de-danh-gia {
+    font-weight: 600;
+}
+
+.form-binh-luan-phan-2 {
+
+    margin-top: 30px;
+}
+
+.form-binh-luan-phan-2-right-2 {
+    margin-top: 15px;
+}
+
+.coloruser {
+    color: #7f8c8d;
+}
+
+.form-binh-luan {
+    border-top: 1px solid black;
+}
+.binh-luan  > li {
+	font-size: 17px !important;
+}

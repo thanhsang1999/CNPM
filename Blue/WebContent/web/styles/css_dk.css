@@ -1,0 +1,57 @@
+.dk-phan-1 {
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.title-dang-ki {
+    font-size: 30px;
+    font-weight: 600;
+    padding-bottom: 3px;
+    border-bottom: 2px solid #2c3e50;
+    color: #3498db;
+}
+
+.duoi-title-dang-ki {
+    font-size: 13px;
+    color: #7f8c8d;
+}
+
+.dk-phan-2 {
+    margin-top: 30px;
+}
+
+.tieu-de-input {
+    margin-right: 30px;
+    font-weight: 600;
+    font-size: 15px;
+    width: 25%;
+}
+
+.gian-cach {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.dk-phan-3 {
+    margin-top: 20px;
+    margin-left:0px;
+}
+
+.dk-phan-4 {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    text-align: center;
+    margin-left: 0px;
+}
+
+.title-tieu-de-dang-ki {
+    font-size: 30px;
+    text-align: center;
+    letter-spacing: 7px;
+    font-weight: 600;
+    color: #3498db;
+}
+
+#input-mk-2 {
+    height: 38px;
+}

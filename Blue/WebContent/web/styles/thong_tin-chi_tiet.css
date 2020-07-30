@@ -1,0 +1,205 @@
+.fullparameter {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 99;
+    display: none;
+    padding: 0 0 0 55px;
+    width: 630px;
+    margin: 0 auto
+}
+
+.fullparameter.display {
+    display: block
+}
+
+.fullparameter ul {
+    padding: 10px 30px 10px 30px;
+    width: 450px
+}
+
+.fullparameter .scroll {
+    height: 100vh;
+    width: auto;
+    padding: 0 30px 0 30px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: #fff
+}
+
+.fullparameter .scroll img {
+    display: block;
+    margin: 0 auto;
+    width: 500px;
+    height: auto
+}
+
+.fullparameter .scroll h4,
+.fullparameter .scroll h3 {
+    display: block;
+    font-size: 18px;
+    color: #666;
+    font-weight: 600;
+    margin-top: 15px;
+    line-height: 1.3em
+}
+
+.tableparameter .closebtn {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 99
+}
+
+.fullparameter .closebtn {
+    float: right;
+    width: 75px;
+    height: 75px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer
+}
+
+.fullparameter .scroll .viewarticle {
+    float: left;
+    padding: 8px;
+    width: 200px;
+    border: 1px solid #288ad6;
+    border-radius: 4px;
+    font-size: 13px;
+    color: #288ad6;
+    font-weight: 600;
+    margin: 15px 0 0 30px;
+    text-align: center
+}
+
+.fullparameter .scroll .viewarticle:hover {
+    background: #288ad6;
+    color: #fff
+}
+
+.fullparameter .scroll .closetable {
+    float: left;
+    padding: 8px;
+    margin: 16px;
+    font-size: 13px;
+    color: #288ad6;
+    position: relative;
+    width: auto;
+    height: auto
+}
+
+.fullparameter .scroll .closetable:hover {
+    color: #e67e22
+}
+
+.fullparameter .scroll::-webkit-scrollbar {
+    width: 9px
+}
+
+.fullparameter .scroll::-webkit-scrollbar-track {
+    background: #fff;
+    width: 11px;
+    padding: 2px
+}
+
+.fullparameter .scroll::-webkit-scrollbar-thumb {
+    background: #d8d8d8;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px
+}
+
+.parameterfull {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    background: #fff
+}
+
+.parameterfull li {
+    display: table;
+    *display: block;
+    background: #fff;
+    width: 100%;
+    border-bottom: 1px solid #dadada
+}
+
+.parameterfull li label {
+    display: block;
+    background: #f2f2f2;
+    font-size: 16px;
+    font-weight: 600;
+    color: #c0392b;
+    padding: 8px
+}
+
+.parameterfull li span {
+    display: table-cell;
+    *float: left;
+    width: 35%;
+    vertical-align: top;
+    padding: 6px 5px;
+    font-size: 13px;
+    color: #666;
+    font-weight: 600
+}
+
+.parameterfull li span div.ph {
+    padding: 0
+}
+
+.parameterfull li div {
+    display: table-cell;
+    *float: left;
+    width: auto;
+    vertical-align: top;
+    padding: 6px 5px;
+    font-size: 13px;
+    color: #666
+}
+
+.parameterfull li div a {
+    color: #288ad6
+}
+
+.parameterfull li div a:hover {
+    color: #e67e22
+}
+
+.specWear {
+    padding: 0 !important;
+    margin-top: 15px;
+    width: 100% !important
+}
+
+.fixbody {
+    overflow: hidden;
+    left: 0;
+    right: 0
+}
+
+.fixparameter {
+    display: block;
+    overflow: hidden;
+    background: rgba(0, 0, 0, .75);
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    z-index: 99;
+    text-indent: 999999em
+}
+
+.icondetail-closepara {
+    background-image: url(https://cdn.tgdd.vn/v2015/Content/desktop/images/icondetail@1x.png);
+    background-position: -160px -60px;
+    width: 75px;
+    height: 75px;
+    cursor: pointer;
+    display: block
+}
