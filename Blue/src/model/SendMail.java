@@ -34,11 +34,11 @@ public class SendMail {
  
     public static final int TSL_PORT = 587; // Port for TLS/STARTTLS
  
-    public static final String APP_EMAIL = "hearterzouest99.999@gmail.com"; // your email
+    public static final String APP_EMAIL = "block33011@gmail.com"; // your email
  
-    public static final String APP_PASSWORD = "tanquan99"; // your password
+    public static final String APP_PASSWORD = "sing3301"; // your password
  
-    public static final String RECEIVE_EMAIL = "tanhoang99.999@gmail.com"; 
+    public static final String RECEIVE_EMAIL = "block33011@gmail.com"; 
 	public static void sendMail(String subject, String htmlContent, String receive_email) {
 		init();
         // 2) compose message
