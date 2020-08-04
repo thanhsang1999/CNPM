@@ -20,15 +20,14 @@
 					</ol>
 					<div class="carousel-inner" role="listbox">
 						<div class="carousel-item active">
-							<img src="/Blue/web/img_bandoan/slide1.png"
-								alt="First slide">
+							<img src="<%=request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/web/img_bandoan/slide1.png"%>" alt="First slide">
 						</div>
 						<div class="carousel-item">
-							<img src="/Blue/web/img_bandoan/slide2.png"
+							<img src="<%=request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/web/img_bandoan/slide2.png"%>"
 								alt="Second slide">
 						</div>
 						<div class="carousel-item">
-							<img src="/Blue/web/img_bandoan/slide3.png"
+							<img src="<%=request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/web/img_bandoan/slide3.png"%>"
 								alt="Third slide">
 						</div>
 						<a class="carousel-control-prev" href="#carouselId" role="button"

@@ -70,13 +70,8 @@ public class login extends HttpServlet {
                 User u= new User();
                 u.setId(rs.getString("ID_ACCOUNT"));
                 u.setUname(rs.getString("USERNAME"));
-                
-               
                 u.setPass(pass);
-                
-               
                 u.setHoten(rs.getString("HO_TEN"));
-               
                 HttpSession session = request.getSession();
                 session.setAttribute("user", u);
                 String mess="";

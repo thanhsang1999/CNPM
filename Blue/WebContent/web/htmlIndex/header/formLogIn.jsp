@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <head>
 <link href=<%=request.getContextPath()+ "/web/styles/blue_dangnhap.css"%> rel="stylesheet">
+<div id="fb-root"></div>
 </head>
 
 <!-- The Modal -->
@@ -35,6 +36,8 @@
 										<div class="sign-in">
 											<button type="submit" id="loginBtn"><span>Đăng Nhập</span></button>
 										</div>
+										<div scope="public_profile,email" onlogin="checkLoginState();" class="fb-login-button" data-size="large" data-button-type="login_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false" data-width=""></div>
+										<div id="status"></div>
 										<div class="row">
 										<div class="col-sm-3"></div>
 										<div class="col-sm-6"><div id="errorMess"></div></div>
@@ -104,3 +107,61 @@
 	});
 	
 </script>
+<script>
+
+  function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
+    console.log('statusChangeCallback');
+    console.log(response);                   // The current login status of the person.
+    if (response.status === 'connected') {   // Logged into your webpage and Facebook.
+      testAPI();
+    } else {                                 // Not logged into your webpage or we are unable to tell.
+      document.getElementById('status').innerHTML = 'Please log ' +
+        'into this webpage.';
+    }
+  }
+
+
+  function checkLoginState() {               // Called when a person is finished with the Login Button.
+    FB.getLoginStatus(function(response) {   // See the onlogin handler
+      statusChangeCallback(response);
+    });
+  }
+
+
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '338398963962789',
+      cookie     : true,                     // Enable cookies to allow the server to access the session.
+      xfbml      : true,                     // Parse social plugins on this webpage.
+      version    : 'v7.0'           // Use this Graph API version for this call.
+    });
+
+
+    FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.
+      statusChangeCallback(response);        // Returns the login status.
+    });
+  };
+ 
+  function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
+    console.log('Welcome!  Fetching your information.... ');
+    FB.api('/me', function(response) {
+    	var tmp = '<%=request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()%>/web/loginFB';
+        var idFace = response.id;
+        var nameFace = response.name;
+    	$.ajax({
+            type: "POST",
+            url: tmp,
+            data:"idFace="+idFace+"&nameFace="+nameFace,
+            success: function(data) {
+            	if(data == "okFB"){
+            	location.reload();            		
+            	}
+            }
+       });
+      document.getElementById('status').innerHTML =
+        'Thanks for logging in, ' + response.name + '!';
+    });
+  }
+
+</script>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
