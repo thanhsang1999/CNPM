@@ -36,8 +36,7 @@
 										<div class="sign-in">
 											<button type="submit" id="loginBtn"><span>Đăng Nhập</span></button>
 										</div>
-										<div scope="public_profile,email" onlogin="checkLoginState();" class="fb-login-button" data-size="large" data-button-type="login_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false" data-width=""></div>
-										<div id="status"></div>
+										<div scope="public_profile,email" onlogin="checkLoginState();" class="fb-login-button" data-size="large" data-button-type="login_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false" data-width=""></div>									
 										<div class="row">
 										<div class="col-sm-3"></div>
 										<div class="col-sm-6"><div id="errorMess"></div></div>
