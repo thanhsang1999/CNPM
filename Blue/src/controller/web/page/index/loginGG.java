@@ -1,7 +1,6 @@
 package controller.web.page.index;
 
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,16 +14,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import DB.ConnectionDB;
-import model.MD5;
 import model.User;
 
 
-@WebServlet("/web/loginFB")
-public class loginFB extends HttpServlet {
+@WebServlet("/web/loginGG")
+public class loginGG extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 
-    public loginFB() {
+    public loginGG() {
         super();
     }
 
@@ -34,7 +32,6 @@ public class loginFB extends HttpServlet {
 		
         
 	}
-	
 	String id;
 	String name;
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -42,10 +39,10 @@ public class loginFB extends HttpServlet {
         response.setCharacterEncoding("utf8");
         response.setContentType("text/html;charset=utf-8");
         
-			 id=request.getParameter("idFace");
-			 name = request.getParameter("nameFace");
+			id=request.getParameter("id");
+			name = request.getParameter("name");
 			if(id!=null&&name!=null) {
-	            checkAndCreateAccount(request,response);
+				checkAndCreateAccount(request,response);
 			}
 			
 	}
@@ -91,7 +88,7 @@ public class loginFB extends HttpServlet {
 				userss.setLevel(5);
 				userss.setActive(1);
 				session.setAttribute("user", userss);
-				response.getWriter().write("okFB");
+				response.getWriter().write("okGG");
 			} else {
 				String sql1 = "Select * from account where USERNAME=?";
 				PreparedStatement ps1= ConnectionDB.prepareStatement(sql);
@@ -109,7 +106,7 @@ public class loginFB extends HttpServlet {
 	                session.setAttribute("user", u);
 	            }
 	                ps.close();
-	                response.getWriter().write("okFB");
+	                response.getWriter().write("okGG");
 			}
 
 		} catch (ClassNotFoundException e) {

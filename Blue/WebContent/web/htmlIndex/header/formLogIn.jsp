@@ -38,42 +38,17 @@
 												<input type="password" name="pass" id="pass" placeholder="Mật Khẩu" />
 											</div>
 										</div>
-										<div class="sign-in">
-											<button type="submit" id="loginBtn"><span>Đăng Nhập</span></button>
-										</div>
-										<div scope="public_profile,email" onlogin="checkLoginState();" class="fb-login-button" data-size="large" data-button-type="login_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false" data-width=""></div>									
 										<div class="row">
 										<div class="col-sm-3"></div>
 										<div class="col-sm-6"><div id="errorMess"></div></div>
 										<div class="col-sm-3"></div>
 										</div>
+										<div class="sign-in">
+											<button type="submit" id="loginBtn"><span>Đăng Nhập</span></button>
+										</div>
+										<div scope="public_profile,email" onlogin="checkLoginState();" class="fb-login-button" data-size="large" data-button-type="login_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false" data-width=""></div>									
 										
-										   <div class="g-signin2" data-onsuccess="onSignIn" id="myP"></div>
-      <img id="myImg"><br>
-      <p id="name"></p>
-      <div id="status">
-   </div>
-   <script type="text/javascript">
-      function onSignIn(googleUser) {
-      // window.location.href='success.jsp';
-      var profile = googleUser.getBasicProfile();
-      var imagurl=profile.getImageUrl();
-      var name=profile.getName();
-      var email=profile.getEmail();
-      document.getElementById("myImg").src = imagurl;
-      document.getElementById("name").innerHTML = name;
-      document.getElementById("myP").style.visibility = "hidden";
-      document.getElementById("status").innerHTML = 'Welcome '+name+'!<a href=success.jsp?                  
-      email='+email+'&name='+name+'/>Continue with Google login</a></p>'
-   }
-   </script>
-
-   <script>
-      function myFunction() {
-      gapi.auth2.getAuthInstance().disconnect();
-      location.reload();
-   }
-   </script>
+										   <div class="g-signin2" data-onsuccess="onSignIn" id="btn-login-gg" ></div>
 										
 										<div class="row dang-nhap-phan-2">
 											<div class="col-sm-1"></div>
@@ -163,7 +138,7 @@
 
   window.fbAsyncInit = function() {
     FB.init({
-      appId      : '338398963962789',
+      appId      : '443788336737556',
       cookie     : true,                     // Enable cookies to allow the server to access the session.
       xfbml      : true,                     // Parse social plugins on this webpage.
       version    : 'v7.0'           // Use this Graph API version for this call.
@@ -195,6 +170,59 @@
         'Thanks for logging in, ' + response.name + '!';
     });
   }
+  var tmp;
+  var id;
+  var name;
+  var email;
+  function onSignIn(googleUser) {
+	  var profile = googleUser.getBasicProfile();
+	  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+	  console.log('Name: ' + profile.getName());
+	  console.log('Image URL: ' + profile.getImageUrl());
+	  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+	  tmp = '<%=request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()%>/web/loginGG';
+      id = profile.getId();
+      name = profile.getName();
+      email = profile.getEmail();
+      
+	}
+ 
+	 
 
+	var index = 0;
+  function onSuccess(googleUser) {
+	index++;
+	console.log(index);
+    console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+    if(index==2){
+  	  $.ajax({
+            type: "POST",
+            url: tmp,
+            data:"id="+id+"&name="+name+"&email="+email,
+            success: function(data) {
+            	if(data == "okGG"){
+            	location.reload();            		
+            	}
+            }
+       });
+    }
+  }
+ 
+  function onFailure(error) {
+    console.log(error);
+  }
+
+  function renderButton() {
+    gapi.signin2.render('btn-login-gg', {
+      'scope': 'profile email',
+      'width': 227,
+      'height': 52,
+      'longtitle': true,
+      'theme': 'dark',
+      'onsuccess': onSuccess,
+      'onfailure': onFailure
+    });
+  }
 </script>
+ <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>

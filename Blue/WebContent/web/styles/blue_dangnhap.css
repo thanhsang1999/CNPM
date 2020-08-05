@@ -57,7 +57,7 @@ span {
 
 /* ------------SUBMIT------------- */
 .sign-in {
-    margin-bottom: 80px;
+    margin-bottom: 58px;
 }
 
 .sign-in #loginBtn {
@@ -133,4 +133,9 @@ margin-bottom: 50px;
 }
 .btn-btnqmk:hover{
     background: #2980b9;
+}
+.abcRioButtonBlue {
+	margin: auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
 }
