@@ -52,7 +52,10 @@ public class logout extends HttpServlet {
         response.setCharacterEncoding("utf8");
         HttpSession session = request.getSession();
         session.invalidate();
-        response.sendRedirect(request.getContextPath());
+//        System.out.println(request.getContextPath());
+//        response.sendRedirect(request.getContextPath());
+        response.sendRedirect("web/index");
+//        request.getRequestDispatcher("web/index").forward(request, response);
         System.out.println("Đăng xuất thành công");
        
     }

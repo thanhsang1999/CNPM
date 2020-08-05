@@ -79,9 +79,6 @@ public class mailpassword extends HttpServlet {
         			ps.close();
         			sql="UPDATE mailpassword SET `key` = ? WHERE ID_ACCOUNT=?";
         			ps =ConnectionDB.prepareStatement(sql);
-        			
-        			
-        			
         			ps.setString(1, key);
         			ps.setString(2, id);
         			ps.executeUpdate();
