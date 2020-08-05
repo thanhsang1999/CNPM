@@ -15,8 +15,8 @@ public class ConnectionDB {
         if (con==null||con.isClosed()) {
             Class.forName("com.mysql.jdbc.Driver");
 //            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/blue?useUnicode=true&characterEncoding=utf-8", "root", "");
-            con = DriverManager.getConnection("jdbc:mysql://node231729-cnpm2020.j.layershift.co.uk/webbandoan?useUnicode=true&characterEncoding=utf-8", "root", "BFAcbz45806");
-//            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webbandoan?useUnicode=true&characterEncoding=utf-8", "root", "");
+//            con = DriverManager.getConnection("jdbc:mysql://node231729-cnpm2020.j.layershift.co.uk/webbandoan?useUnicode=true&characterEncoding=utf-8", "root", "BFAcbz45806");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webbandoan?useUnicode=true&characterEncoding=utf-8", "root", "");
             return con.createStatement();
         } else {
             return con.createStatement();
@@ -27,21 +27,12 @@ public class ConnectionDB {
     	if (con==null||con.isClosed()) {
     		Class.forName("com.mysql.jdbc.Driver");
 //    		con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project?useUnicode=true&characterEncoding=utf-8", "root", "");
-    		con = DriverManager.getConnection("jdbc:mysql://node231729-cnpm2020.j.layershift.co.uk/webbandoan?useUnicode=true&characterEncoding=utf-8", "root", "BFAcbz45806");
-//    		con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webbandoan?useUnicode=true&characterEncoding=utf-8", "root", "");
+//    		con = DriverManager.getConnection("jdbc:mysql://node231729-cnpm2020.j.layershift.co.uk/webbandoan?useUnicode=true&characterEncoding=utf-8", "root", "BFAcbz45806");
+    		con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webbandoan?useUnicode=true&characterEncoding=utf-8", "root", "");
     		return con.prepareStatement(sql);
     	} else {
     		return con.prepareStatement(sql);
     	}
     	
     }
-
-    public static void main(String[] args) throws Exception {
-    	Statement s=ConnectionDB.createStatement();
-		ResultSet rs = s.executeQuery("SELECT COUNT(*) FROM (SELECT IMG,NAME,PRICE,SALE_RATE,DATE_SUBMITTED,AMOUNT_SOLD FROM product WHERE AMOUNT>0) as Y");
-		rs.next();
-		int number=(int) rs.getInt(1);
-		System.out.println(number);
-    }
-
 }

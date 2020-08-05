@@ -47,72 +47,69 @@ public class signup extends HttpServlet {
 	private void todo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		request.setCharacterEncoding("utf8");
-		response.setCharacterEncoding("utf8");
-		if (!validateData(request, response)) return;
-		checkAndCreateAccount(request,response);
-
+        response.setCharacterEncoding("utf8");
+       if(validateData(request, response)==true) {
+    	   checkAndCreateAccount(request, response);
+       }
 	}
 
 	private void checkAndCreateAccount(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		String sql = "Select * from account where USERNAME=?";
-		String sqlcount = "SELECT COUNT(*) FROM `account`";
-
-		ResultSet rs = null;
-		User userss = new User();
-		String sqlin = "INSERT INTO `account` VALUES (?,?,?,?,?,?);";
-		String sql_ct_account = "INSERT INTO `ct_account`(ID_ACCOUNT,EMAIL) VALUES (?,?);";
-		try {
-			Statement statement = ConnectionDB.createStatement();
-			ResultSet rscount = statement.executeQuery(sqlcount);
-			rscount.first();
-			int count = rscount.getInt(1);
-			System.out.println(count);
-			PreparedStatement ps = ConnectionDB.prepareStatement(sql);
-			ps.setString(1, uname);
-			rs = ps.executeQuery();
-			rs.last();
-			int tmpcountaccount = rs.getRow();
-			rs.first();
-			if ((tmpcountaccount == 0) && pass.equals(pass2)) {
-				PreparedStatement adddkDTB = ConnectionDB.prepareStatement(sqlin);
-				PreparedStatement addCTACDTB = ConnectionDB.prepareStatement(sql_ct_account);
-				String idAc = "TK" + (count + 1);
-				adddkDTB.setString(1, idAc);
-				adddkDTB.setString(2, uname);
-				try {
-					pass = MD5.convertHashToString(pass);
-				} catch (NoSuchAlgorithmException e) {
+		 String sql = "Select * from account where USERNAME=?";
+	        String sqlcount = "SELECT COUNT(*) FROM `account`";
+	        
+	        ResultSet rs = null;
+	        User userss = new User();
+	        String sqlin = "INSERT INTO `account` VALUES (?,?,?,?,?,?);";
+	        String sql_ct_account ="INSERT INTO `ct_account`(ID_ACCOUNT,EMAIL) VALUES (?,?);";
+	        	try {
+	        		Statement statement = ConnectionDB.createStatement();
+	        		ResultSet rscount = statement.executeQuery(sqlcount);
+	        		rscount.first();
+	        		int count = rscount.getInt(1);
+	        		System.out.println(count);
+					PreparedStatement ps= ConnectionDB.prepareStatement(sql);
+					ps.setString(1, uname);
+					rs = ps.executeQuery();
+					rs.last();
+					int tmpcountaccount = rs.getRow();
+					rs.first();
+					if ((tmpcountaccount==0)&&pass.equals(pass2)) {
+						PreparedStatement adddkDTB = ConnectionDB.prepareStatement(sqlin);
+						PreparedStatement addCTACDTB = ConnectionDB.prepareStatement(sql_ct_account);
+						String idAc = "TK"+(count+1);
+						adddkDTB.setString(1, idAc);
+						adddkDTB.setString(2,uname );
+						try {
+							pass= MD5.convertHashToString(pass) ;
+						} catch (NoSuchAlgorithmException e) {
+							e.printStackTrace();
+						}
+						adddkDTB.setString(3,pass );
+						adddkDTB.setString(4,hoten );
+						adddkDTB.setString(5,"5" );
+						adddkDTB.setString(6,"1" );
+						adddkDTB.executeUpdate();
+						addCTACDTB.setString(1, idAc);
+						addCTACDTB.setString(2, nemail);
+						addCTACDTB.executeUpdate();
+						HttpSession session = request.getSession();
+						userss.setId("TK"+(count+1));
+						userss.setUname(uname);
+						userss.setPass(pass);
+						userss.setHoten(hoten);
+						userss.setLevel(5);
+						userss.setActive(1);
+						session.setAttribute("user", userss);
+						//response.sendRedirect(request.getContextPath()+"/web/index");
+						response.getWriter().print("OK");
+					}else {
+						response.getWriter().print("Tài Khoản Đã Tồn Tại");
+					}
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+				} catch (SQLException e) {
 					e.printStackTrace();
 				}
-				adddkDTB.setString(3, pass);
-				adddkDTB.setString(4, hoten);
-				adddkDTB.setString(5, "5");
-				adddkDTB.setString(6, "1");
-				adddkDTB.executeUpdate();
-				addCTACDTB.setString(1, idAc);
-				addCTACDTB.setString(2, nemail);
-				addCTACDTB.executeUpdate();
-				HttpSession session = request.getSession();
-				userss.setId("TK" + (count + 1));
-				userss.setUname(uname);
-				userss.setPass(pass);
-				userss.setHoten(hoten);
-				userss.setLevel(5);
-				userss.setActive(1);
-				session.setAttribute("user", userss);
-				// response.sendRedirect(request.getContextPath()+"/web/index");
-				response.getWriter().print("OK");
-			} else {
-				if (tmpcountaccount == 0) {
-					response.getWriter().print("Repass incorect");
-				}
-			}
-
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 	}
 
 	private boolean validateData(HttpServletRequest request, HttpServletResponse response) throws IOException {
