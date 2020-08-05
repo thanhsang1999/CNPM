@@ -19,7 +19,7 @@ public class User {
     int active;
     String phone;
     String dia_chi;
-
+    
     public String getPhone() {
 		return phone;
 	}
@@ -98,18 +98,6 @@ public class User {
     public void setActive(int hide) {
         this.active = hide;
     }
-    public PreparedStatement getRecentlyViewed() {
-    	PreparedStatement rs=null;
-    	String sql = "SELECT `product`.ID_PRODUCT, IMG, `NAME`, PRICE, SALE_RATE, DATE_SUBMITTED FROM  (SELECT ID_PRODUCT FROM `recently_viewed`  WHERE ID_ACCOUNT=? ) A JOIN `product` ON A.ID_PRODUCT=`product`.ID_PRODUCT";
-    	try {
-			rs = ConnectionDB.prepareStatement(sql);
-			rs.setString(1, this.getId());
-			
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
-		}
-    	return rs;
-    }
     public User checkUpdateDatabase(HttpSession session) throws ClassNotFoundException, SQLException {
     	
     	String sql = "Select * from account where USERNAME=? and PASSWORD=?";
@@ -154,29 +142,6 @@ public class User {
 
     	return null;
     }
-    public int deleteViewed(int tmp) throws ClassNotFoundException, SQLException {
-    	String sql ="DELETE FROM recently_viewed WHERE ID_ACCOUNT = ? ORDER BY DATE_VIEW ASC LIMIT ?;";
-		PreparedStatement ps = ConnectionDB.prepareStatement(sql);
-		ps.setString(1, id);
-		ps.setInt(2, tmp);
-		
-		int rs = ps.executeUpdate();
-		ps.close();
-		return rs;
-		
-	}
-   
-	public int updateCheckBoxCart(int checkall) throws ClassNotFoundException, SQLException {
-		String sql = "UPDATE cart  SET CHECKBOX= ? WHERE ID_ACCOUNT = ? ;";
-		PreparedStatement ps = ConnectionDB.prepareStatement(sql);
-		ps.setInt(1,  checkall);
-		ps.setString(2, this.id);
-		ps.executeUpdate();
-		
-		ps.close();
-		return checkall;
-		
-	}
 	public ResultSet getInformation() throws ClassNotFoundException, SQLException {
 		String sql = "SELECT ct_account.ID_ACCOUNT,ct_account.EMAIL, ct_account.SDT, ct_account.DIA_CHI, ct_account.NGAY_SINH,ct_account.GIOI_TINH, account.HO_TEN FROM ct_account JOIN account ON ct_account.ID_ACCOUNT= account.ID_ACCOUNT WHERE account.ID_ACCOUNT= ?;";
 		PreparedStatement ps = ConnectionDB.prepareStatement(sql);
@@ -191,105 +156,9 @@ public class User {
 		return ps.executeQuery();
 		
 	}
-	public boolean checkAllCheckBoxCart() throws ClassNotFoundException, SQLException {
-		String sql = "SELECT * FROM cart   WHERE ID_ACCOUNT = ? AND CHECKBOX= 0;";
-		PreparedStatement ps = ConnectionDB.prepareStatement(sql);
-		
-		ps.setString(1, this.id);
-		ResultSet rs= ps.executeQuery();
-		if(rs.next()) {
-			ps.close();
-			return false;
-		}
-		ps.close();
-		return true;
-		
-	}
-	public int price() throws ClassNotFoundException, SQLException {
-		int price=0;
-		String sql = "SELECT SUM(A.PRICE) as PRICE FROM (SELECT (product.PRICE- product.PRICE*product.SALE_RATE/100)*cart.AMOUNT as PRICE FROM cart join product on cart.ID_PRODUCT=product.ID_PRODUCT WHERE cart.ID_ACCOUNT = ? AND CHECKBOX=1) A ;";
-		PreparedStatement ps = ConnectionDB.prepareStatement(sql);
-		ps.setString(1, this.getId());
-		ResultSet rs = ps.executeQuery();
-		if(rs.next()) {
-			price=rs.getInt("PRICE");
-		}
-		ps.close();
-		return price;
-	}
-	public String order() throws SQLException  {
-			
-			Statement s;
-			Connection c = null;
-			try {
-				s = ConnectionDB.createStatement();
-				c = s.getConnection();
-			
-			c.setAutoCommit(false);
-			ResultSet rs = s.executeQuery(
-					"SELECT  ID_ORDER FROM `order` WHERE LENGTH(ID_ORDER) = (SELECT MAX(LENGTH(ID_ORDER)) FROM `order` ) ORDER BY ID_ORDER DESC LIMIT 0,1;");
-			String ID_ORDER = "";
-			
-			if (rs.next()) {
-				ID_ORDER = "DH" + (Integer.parseInt(rs.getString(1).replaceAll("[^0-9]", "")) + 1);
-			} else {
-				ID_ORDER="DH1";
-			}
-			s.close();
-			String sql = "INSERT INTO  `order`  (`ID_ORDER`, `ID_USER` ,`HOTEN`,`DIACHI`,`SDT`)"
-					+ " VALUES (?, ?,?,?,?)";
-			PreparedStatement ps = ConnectionDB.prepareStatement(sql);
-			ps.setString(1, ID_ORDER);
-			ps.setString(2, this.getId());
-			ps.setString(3, this.hoten);
-			ps.setString(4, this.dia_chi);
-			ps.setString(5, this.phone);
-			
-			
-			int tmp = ps.executeUpdate();
-			System.out.println((tmp == 1) ? "Update order success" : "Update order error");
-			ps.close();
-			sql = "INSERT INTO  `detail_order`  (`ID_ORDER`, `ID_PRODUCT`,`AMOUNT` )"
-					+ " VALUES (?, ?, ?)";
-			ps = ConnectionDB.prepareStatement(sql);
-			ps.setString(1, ID_ORDER);
-			
-			String sql2="SELECT ID_PRODUCT, AMOUNT FROM cart WHERE ID_ACCOUNT = ?  AND CHECKBOX=1 ";
-			 PreparedStatement ps2 = ConnectionDB.prepareStatement(sql2);
-			 ps2.setString(1, this.id);
-			ResultSet rs2= ps2 .executeQuery();
-			while(rs2.next()) {
-				ps.setString(2, rs2.getString(1));		
-				ps.setInt(3, rs2.getInt(2));		
-				tmp = ps.executeUpdate();
-				System.out.println((tmp == 1) ? "Update detail_order success" : "Update detail_order error");
-			}
-			ps2.close();
-			ps.close();
-			sql2 = "UPDATE `order` SET PRICE = ? WHERE ID_ORDER=?";
-			ps= ConnectionDB.prepareStatement(sql2);
-			ps.setInt(1, this.price());
-			ps.setString(2, ID_ORDER);
-			ps.executeUpdate();
-			ps.close();
-			
-			 sql2="DELETE FROM cart WHERE ID_ACCOUNT = ?  AND CHECKBOX=1;";
-			 ps = ConnectionDB.prepareStatement(sql2);
-			 ps.setString(1, this.id);
-			 ps.executeUpdate();
-			 ps.close();
-			 
-			} catch (ClassNotFoundException | SQLException e) {
-				c.rollback();
-				
-				e.printStackTrace();
-			}
-			c.setAutoCommit(true);
-		return "Success";
-	}
 	 public static void main(String[] args) throws SQLException, ClassNotFoundException {
 			User u = new User("TK1", "hoang", "123", "Lê Tấn Hoàng", 5, 1);
-			System.out.println(u.order());
+//			System.out.println(u.order());
 		}
 
 	public boolean remove() throws ClassNotFoundException, SQLException {

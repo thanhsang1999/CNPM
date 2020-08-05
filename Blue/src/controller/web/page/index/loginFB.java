@@ -22,7 +22,8 @@ import model.User;
 @WebServlet("/web/loginFB")
 public class loginFB extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	String id;
+	String name;
 
     public loginFB() {
         super();
@@ -35,8 +36,7 @@ public class loginFB extends HttpServlet {
         
 	}
 	
-	String id;
-	String name;
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf8");
         response.setCharacterEncoding("utf8");
