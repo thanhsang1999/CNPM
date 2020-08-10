@@ -38,6 +38,7 @@ public class mailpassword extends HttpServlet {
     }
 
     private void todo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	// set kiểm kiểu dữ liệu lấy và trả về là UTF-8
         request.setCharacterEncoding("utf8");
         response.setCharacterEncoding("utf8");
         
