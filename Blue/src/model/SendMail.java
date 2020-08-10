@@ -12,7 +12,7 @@ import javax.mail.internet.MimeMessage;
 
 public class SendMail {
 	public static void init() {
-		// 1) get the session object
+		// khai báo thư viện và host name, công gửi, địa chỉ email gửi
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.host", SendMail.HOST_NAME);
@@ -20,6 +20,7 @@ public class SendMail {
         props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         props.put("mail.smtp.port", SendMail.SSL_PORT);
  
+        // khai báo session email để gửi gồm tài khoản password
         session = Session.getInstance(props, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(SendMail.APP_EMAIL, SendMail.APP_PASSWORD);
@@ -39,7 +40,15 @@ public class SendMail {
     public static final String APP_PASSWORD = "sing3301"; // your password
  
     public static final String RECEIVE_EMAIL = "block33011@gmail.com"; 
+
+	/**
+	 *  gửi mail 
+	 *  @param subject utf-8
+	 *  @param htmlContent tiêu đề của email
+	 *  @param receive_email nội dung của email
+	 *  */
 	public static void sendMail(String subject, String htmlContent, String receive_email) {
+		// khởi tạo cấu hình email
 		init();
         // 2) compose message
         try {
@@ -51,9 +60,9 @@ public class SendMail {
             message.setSubject(subject,"UTF-8");
             message.setContent(htmlContent, "text/html;charset=UTF-8");
              
-            // 4) send message
+            // 4) send message -  gửi mail và kết thúc
             Transport.send(message);
- 
+            
             System.out.println("Message sent successfully");
         } catch (MessagingException ex) {
             ex.printStackTrace();

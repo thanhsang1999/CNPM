@@ -65,23 +65,29 @@
 	</div>
 </div>
 <script>
+	// trang load xong mới vào đoạn javascript này
 	$('document').ready(function() {
-		
+		// lấy sự kiện click của .btn-btnqmk
 		$('.btn-btnqmk').click(function(e){
 			e.preventDefault();
 			if ($('#errorMessqmk').text()!="") {
 				$('#errorMessqmk').text("");
 			}
 			$(".icon-xoay").css("opacity","1");
+			// ajax jquery 
 			$.ajax({
+				// Post lên server
 				type: "POST",
+				// địa chỉ
 				url: '<%=request.getContextPath()+ "/web/mailpassword"%>',
-				
+				// lấy data từ from theo name
 				data: $('#formQMK').serialize(),
 				
+					// bắt sự kiện trả về
 				success: function(data){
+					// in ra chuỗi trả về từ server
 							$('#errorMessqmk').text(data);
-							if(data=="Username not corect" || data=="Gửi mail thành công"){
+							if(data=="Username not corect" || data=="Gửi mail thành công"||data == "Tài Khoản Không Tồn Tại"){
 							$(".icon-xoay").css("opacity","0");
 							}
 							return;
