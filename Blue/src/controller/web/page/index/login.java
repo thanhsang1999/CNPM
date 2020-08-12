@@ -36,14 +36,17 @@ public class login extends HttpServlet {
     }
 
     private void todo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("utf8");
+    	// set mã hóa ký từ client lên server và từ server trả về có định dạng UTF-8
+    	request.setCharacterEncoding("utf8");
         response.setCharacterEncoding("utf8");
-        
+        // lấy dữ liệu từ client, bao gồm username của người dùng và mật khẩu
+        // kiểm tra đọ dài tài khoản
         String uname = Tools.getParameter(request, "uname");
         System.out.println("Username: "+uname);
         if(!uname.matches("\\w{3,}")) {
         	return;
         }
+     // kiểm tra đọ dài mật khẩu
         String pass = Tools.getParameter(request, "pass");
         System.out.println("pass: "+pass);
         if(!pass.matches("\\w{3,}")) {
@@ -59,6 +62,7 @@ public class login extends HttpServlet {
 			e.printStackTrace();
 		}
         try {
+        	//kiểm tra xem tài khoản có trong database hay chưa, nếu có đăng nhập, nếu chưa báo lỗi
         	PreparedStatement ps= ConnectionDB.prepareStatement(sql);
         	ps.setString(1, uname);
         	ps.setString(2, pass);
@@ -72,6 +76,7 @@ public class login extends HttpServlet {
                 u.setUname(rs.getString("USERNAME"));
                 u.setPass(pass);
                 u.setHoten(rs.getString("HO_TEN"));
+                // set session
                 HttpSession session = request.getSession();
                 session.setAttribute("user", u);
                 String mess="";
@@ -87,6 +92,7 @@ public class login extends HttpServlet {
 					break;
 				}
                 ps.close();
+                // trả về đăng nhập thành công cho người dùng, đồng thời chuyển đến trang chủ với tài khoản đã đăng nhập
                 response.getWriter().print(mess);
                 System.out.println("Đăng nhập thành công");
             } else {
