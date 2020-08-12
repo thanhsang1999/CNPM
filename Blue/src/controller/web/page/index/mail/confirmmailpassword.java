@@ -36,17 +36,18 @@ public class confirmmailpassword extends HttpServlet {
     }
 
     private void todo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    
+    	// set mã hóa ký từ client lên server và từ server trả về có định dạng UTF-8
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html");
+        response.setContentType("text/html"); 
+        // lấy key từ client
         String key = Tools.getParameter(request, "key");
         System.out.println("Key: "+key);
-       
+        // kiểm tra đọ dài của key nếu bé hơn 3 thì dừng
         if(!key.matches("\\w{3,}")) {
         	return;
         }
- 
+       // truy vấn key trong bảng mailpassword
         String sql = "SELECT * from mailpassword WHERE `key`=?";
 		PreparedStatement ps;
 		ResultSet rs = null;
@@ -57,13 +58,13 @@ public class confirmmailpassword extends HttpServlet {
 			if(rs.next()) {
 				String id = rs.getString("ID_ACCOUNT");
 				System.out.println(id);
-
+				// xóa key trong bảng mailpassword
 				sql = "DELETE FROM mailpassword WHERE `key`=?";
 				ps = ConnectionDB.prepareStatement(sql);
 				ps.setString(1, key);
 				ps.executeUpdate();
 				ps.close();
-			
+				// update tài khoản với mật khẩu key đã mã hóa MD5
 				sql = "UPDATE ACCOUNT SET PASSWORD=? WHERE `ID_ACCOUNT`=?";
 				ps = ConnectionDB.prepareStatement(sql);
 				try {
@@ -76,7 +77,7 @@ public class confirmmailpassword extends HttpServlet {
 				ps.close();
 				
 			}
-		
+			// trả về cho người dùng về mật khẩu của tài khoản.
 			response.getWriter().print("Mật khẩu của bạn là: "+key);
 		
 		
