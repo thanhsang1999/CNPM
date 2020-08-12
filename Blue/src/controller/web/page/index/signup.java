@@ -24,7 +24,6 @@ import model.User;
 @WebServlet("/web/signupweb")
 public class signup extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	//khởi tạo biến để lưu giá trị tạm
 	String uname;
 	String pass;
 	String pass2;
@@ -54,10 +53,6 @@ public class signup extends HttpServlet {
        }
 	}
 
-	/**
-	 * kiểm tra tài khoản đã tồn tại hay chưa, nếu hợp lệ cho đăng kí và đăng nhập
-	 * vào hệ thống
-	 */
 	private void checkAndCreateAccount(HttpServletRequest request, HttpServletResponse response) throws IOException {
 			String sql = "Select * from account where USERNAME=?";
 	        String sqlcount = "SELECT COUNT(*) FROM `account`";
@@ -78,7 +73,6 @@ public class signup extends HttpServlet {
 					rs.last();
 					int tmpcountaccount = rs.getRow();
 					rs.first();
-					// kiểm tra tài khoản đã tồn tại hay chưa
 					if ((tmpcountaccount==0)&&pass.equals(pass2)) {
 						PreparedStatement adddkDTB = ConnectionDB.prepareStatement(sqlin);
 						PreparedStatement addCTACDTB = ConnectionDB.prepareStatement(sql_ct_account);
@@ -106,10 +100,8 @@ public class signup extends HttpServlet {
 						userss.setLevel(5);
 						userss.setActive(1);
 						session.setAttribute("user", userss);
-						//response.sendRedirect(request.getContextPath()+"/web/index");
 						response.getWriter().print("OK");
 					}else {
-						// thông báo lỗi khi phát hiện tài khoản đã tồn tại
 						response.getWriter().print("Tài Khoản Đã Tồn Tại");
 					}
 				} catch (ClassNotFoundException e) {
@@ -119,20 +111,13 @@ public class signup extends HttpServlet {
 				}
 	}
 
-	/**
-	 * kiểm tra thông tin người dùng nhập có đúng yêu cầu hay không, nếu đúng thì
-	 * true tiến hành bước kiểm tra tài khoản tồn tại tại phương thức
-	 * checkAndCreateAccount, nếu sai thì trả về thông báo lỗi cho người dùng.
-	 */ 
 	private boolean validateData(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		// lấy dữ liệu tài khoản và kiểm tra lỗi có ít hơn 3 kí tự hay không
 		uname = Tools.getParameter(request, "uname");
 		System.out.println("Username: " + uname);
 		if (!uname.matches("\\w{3,}")) {
 			response.getWriter().print("Username not corect");
 			return false;
 		}
-		// lấy dữ liệu password và kiểm tra lỗi 2 mật khẩu có trùng nhau hay không
 		pass = Tools.getParameter(request, "pass");
 		pass2 = Tools.getParameter(request, "pass2");
 		System.out.println("Password: " + (pass.equals(pass2)));
@@ -140,14 +125,12 @@ public class signup extends HttpServlet {
 			response.getWriter().print("Password not corect");
 			return false;
 		}
-		// lấy dữ liệu họ tên và kiểm tra độ dài
 		hoten = Tools.getParameter(request, "hoten");
 		System.out.println("Họ và tên: " + hoten);
 		if (!hoten.matches(".{3,}")) {
 			response.getWriter().print("Họ tên chưa điền");
 			return false;
 		}
-		// lấy dữ liệu email và kiểm tra định dạng
 		nemail = Tools.getParameter(request, "nemail");
 		System.out.println("nemail: " + nemail);
 		if (!nemail.matches("^[a-z][a-z0-9_\\.]{5,32}@[a-z0-9]{2,}(\\.[a-z0-9]{2,4}){1,2}$")) {
