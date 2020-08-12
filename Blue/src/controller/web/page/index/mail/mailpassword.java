@@ -62,16 +62,14 @@ public class mailpassword extends HttpServlet {
 			rstmp.last();
 			int tmpcountaccount = rstmp.getRow();
 			rstmp.first();
-
+	
 			if ((tmpcountaccount == 0)) {
 				response.getWriter().print("Tài Khoản Không Tồn Tại");
 				return;
 			}
 		} catch (ClassNotFoundException e1) {
-			
 			e1.printStackTrace();
 		} catch (SQLException e1) {
-		
 			e1.printStackTrace();
 		}
 		
@@ -81,12 +79,12 @@ public class mailpassword extends HttpServlet {
 			PreparedStatement ps = ConnectionDB.prepareStatement(sql);
 			ps.setString(1, uname);
 			rs = ps.executeQuery();
-			
+	
 			String id = "";
 			String name = "";
 			String mail = "";
 			if (rs.next()) {
-				
+			
 				id = rs.getString("ID_ACCOUNT");
 				name = rs.getString("HO_TEN");
 				mail = rs.getString("EMAIL");
@@ -98,7 +96,7 @@ public class mailpassword extends HttpServlet {
 				ps = ConnectionDB.prepareStatement(sql);
 				ps.setString(1, id);
 				rs = ps.executeQuery();
-				
+			
 				String key = Date.getCurrentDay().getStringByFormat("DD-MM-YYYY hh:mm:ss");
 				try {
 					
@@ -107,7 +105,7 @@ public class mailpassword extends HttpServlet {
 					e.printStackTrace();
 				}
 				if (rs.next()) {
-				
+					
 					ps.close();
 					sql = "UPDATE mailpassword SET `key` = ? WHERE ID_ACCOUNT=?";
 					ps = ConnectionDB.prepareStatement(sql);
@@ -116,7 +114,7 @@ public class mailpassword extends HttpServlet {
 					ps.executeUpdate();
 					System.out.println("Update key");
 				} else {
-					
+				
 					ps.close();
 					sql = "INSERT INTO mailpassword(ID_ACCOUNT, `key`) VALUE (?, ?);";
 					ps = ConnectionDB.prepareStatement(sql);
@@ -127,13 +125,13 @@ public class mailpassword extends HttpServlet {
 					System.out.println("Create key");
 				}
 				ps.close();
-			
+		
 				String htmlContent = "<a href=" + request.getScheme() + "://" + request.getServerName() + ":"
 						+ request.getServerPort() + request.getContextPath() + "/web/confirmmailpassword?key=" + key
 						+ ">Bấm vào đây để lấy mật khẩu</a>";
 				SendMail.sendMail("Mail confirm", htmlContent, mail);
 			}
-			
+		
 			String mess = "Gửi mail thành công";
 			response.getWriter().print(mess);
 			System.out.println(mess);

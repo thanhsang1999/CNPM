@@ -36,16 +36,17 @@ public class confirmmailpassword extends HttpServlet {
     }
 
     private void todo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html"); 
-        
+        response.setContentType("text/html");
         String key = Tools.getParameter(request, "key");
         System.out.println("Key: "+key);
+       
         if(!key.matches("\\w{3,}")) {
         	return;
         }
-       
+ 
         String sql = "SELECT * from mailpassword WHERE `key`=?";
 		PreparedStatement ps;
 		ResultSet rs = null;
@@ -56,11 +57,13 @@ public class confirmmailpassword extends HttpServlet {
 			if(rs.next()) {
 				String id = rs.getString("ID_ACCOUNT");
 				System.out.println(id);
+
 				sql = "DELETE FROM mailpassword WHERE `key`=?";
 				ps = ConnectionDB.prepareStatement(sql);
 				ps.setString(1, key);
 				ps.executeUpdate();
 				ps.close();
+			
 				sql = "UPDATE ACCOUNT SET PASSWORD=? WHERE `ID_ACCOUNT`=?";
 				ps = ConnectionDB.prepareStatement(sql);
 				try {
@@ -73,6 +76,7 @@ public class confirmmailpassword extends HttpServlet {
 				ps.close();
 				
 			}
+		
 			response.getWriter().print("Mật khẩu của bạn là: "+key);
 		
 		
