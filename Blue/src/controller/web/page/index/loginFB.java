@@ -22,6 +22,7 @@ import model.User;
 @WebServlet("/web/loginFB")
 public class loginFB extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	// khai báo biến id và name
 	String id;
 	String name;
 
@@ -31,24 +32,29 @@ public class loginFB extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
-        
+
 	}
 	
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// set mã hóa ký từ client lên server và từ server trả về có định dạng UTF-8
 		request.setCharacterEncoding("utf8");
         response.setCharacterEncoding("utf8");
         response.setContentType("text/html;charset=utf-8");
-        
+        // lấy dữ liệu từ client, bao gồm Id của người dùng Facebook và tên của người dùng facebook
 			 id=request.getParameter("idFace");
 			 name = request.getParameter("nameFace");
-			if(id!=null&&name!=null) {
-	            checkAndCreateAccount(request,response);
-			}
+		// kiểm tra xem id và name có rỗng không
+		if(id!=null&&name!=null) {
+            checkAndCreateAccount(request,response);
+		}
 			
 	}
+
+	/**
+	 * kiểm tra nếu tài khoản đã tồn tại trong hệ thông rồi thì đăng nhập, còn không
+	 * thì tạo mới
+	 */
 	private void checkAndCreateAccount(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String sql = "Select * from account where USERNAME=?";
 		String sqlcount = "SELECT COUNT(*) FROM `account`";
@@ -69,7 +75,9 @@ public class loginFB extends HttpServlet {
 			rs.last();
 			int tmpcountaccount = rs.getRow();
 			rs.first();
+			// kiểm tra tài khoản đã tồn tại trong database hay chưa
 			if ((tmpcountaccount == 0)) {
+				// tạo mới tài khoản
 				PreparedStatement adddkDTB = ConnectionDB.prepareStatement(sqlin);
 				PreparedStatement addCTACDTB = ConnectionDB.prepareStatement(sql_ct_account);
 				String idAc = "TK" + (count + 1);
@@ -91,10 +99,12 @@ public class loginFB extends HttpServlet {
 				userss.setLevel(5);
 				userss.setActive(1);
 				session.setAttribute("user", userss);
+				// trả về client thông báo đăng nhập thành công
 				response.getWriter().write("okFB");
 			} else {
+				//nếu tồn tại thì đăng nhập
 				String sql1 = "Select * from account where USERNAME=?";
-				PreparedStatement ps1= ConnectionDB.prepareStatement(sql);
+				PreparedStatement ps1= ConnectionDB.prepareStatement(sql1);
 				ps1.setString(1, id);
 	            rs = ps1.executeQuery();
 	            rs.last();
@@ -109,6 +119,7 @@ public class loginFB extends HttpServlet {
 	                session.setAttribute("user", u);
 	            }
 	                ps.close();
+	             // trả về client thông báo đăng nhập thành công
 	                response.getWriter().write("okFB");
 			}
 

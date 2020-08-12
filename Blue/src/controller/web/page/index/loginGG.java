@@ -20,25 +20,24 @@ import model.User;
 @WebServlet("/web/loginGG")
 public class loginGG extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-
+	// khai báo biến id và name
+		String id;
+		String name;
     public loginGG() {
         super();
     }
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
-        
+   
 	}
-	String id;
-	String name;
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// set mã hóa ký từ client lên server và từ server trả về có định dạng UTF-8
 		request.setCharacterEncoding("utf8");
         response.setCharacterEncoding("utf8");
         response.setContentType("text/html;charset=utf-8");
-        
+        // lấy dữ liệu từ client, bao gồm Id của người dùng Google và tên của người dùng google
 			id=request.getParameter("id");
 			name = request.getParameter("name");
 			if(id!=null&&name!=null) {
@@ -46,6 +45,10 @@ public class loginGG extends HttpServlet {
 			}
 			
 	}
+	/**
+	 * kiểm tra nếu tài khoản đã tồn tại trong hệ thông rồi thì đăng nhập, còn không
+	 * thì tạo mới
+	 */
 	private void checkAndCreateAccount(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String sql = "Select * from account where USERNAME=?";
 		String sqlcount = "SELECT COUNT(*) FROM `account`";
@@ -66,7 +69,9 @@ public class loginGG extends HttpServlet {
 			rs.last();
 			int tmpcountaccount = rs.getRow();
 			rs.first();
+			// kiểm tra tài khoản đã tồn tại trong database hay chưa
 			if ((tmpcountaccount == 0)) {
+				// tạo mới tài khoản
 				PreparedStatement adddkDTB = ConnectionDB.prepareStatement(sqlin);
 				PreparedStatement addCTACDTB = ConnectionDB.prepareStatement(sql_ct_account);
 				String idAc = "TK" + (count + 1);
@@ -87,9 +92,11 @@ public class loginGG extends HttpServlet {
 				userss.setHoten(name);
 				userss.setLevel(5);
 				userss.setActive(1);
+				// trả về client thông báo đăng nhập thành công
 				session.setAttribute("user", userss);
 				response.getWriter().write("okGG");
 			} else {
+				//nếu tồn tại thì đăng nhập
 				String sql1 = "Select * from account where USERNAME=?";
 				PreparedStatement ps1= ConnectionDB.prepareStatement(sql);
 				ps1.setString(1, id);
@@ -106,6 +113,7 @@ public class loginGG extends HttpServlet {
 	                session.setAttribute("user", u);
 	            }
 	                ps.close();
+	                // trả về client thông báo đăng nhập thành công
 	                response.getWriter().write("okGG");
 			}
 
